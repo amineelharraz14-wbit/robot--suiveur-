@@ -1,4 +1,5 @@
-
+//   yetvgdjjhbvscfksjbfkj
+//ajfhgkfsjh
 // On inclut les bibliothèques nécessaires
 #include <iostream>            // Pour écrire du texte dans la console
 #include <cmath>               // Pour les calculs mathématiques (cos, sin, sqrt)
