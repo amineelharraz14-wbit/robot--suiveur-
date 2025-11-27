@@ -1,11 +1,11 @@
 
-
+// mmmmmmmmmmmmeedd
 // On inclut les bibliothèques nécessaires
-#include <iostream>            // Pour écrire du texte dans la console (cout)
+#include <iostream>            // Pour écrire du texte dans la console
 #include <cmath>               // Pour les calculs mathématiques (cos, sin, sqrt)
 #include <opencv2/opencv.hpp>  // Pour la vision par ordinateur et l'affichage
 
-// On inclut nos propres modules (vos fichiers .hpp)
+// On inclut nos propres modules ( fichiers .hpp)
 #include "Robot.hpp"
 #include "LiDAR.hpp"
 #include "Camera.hpp"
@@ -120,7 +120,7 @@ int main() {
     monRobot.y = 0.0;   // Au centre
     monRobot.theta = 0.0; // Regarde vers la droite
 
-    // On définit un objectif (Point B) pour la démo
+    // On définit un objectif (Point B) pour ljuste faire un test
     double but_x = 15.0;
     double but_y = 5.0;
     
