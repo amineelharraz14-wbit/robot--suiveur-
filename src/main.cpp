@@ -1,5 +1,4 @@
 
-// mmmmmmmmmmmmeedd
 // On inclut les bibliothèques nécessaires
 #include <iostream>            // Pour écrire du texte dans la console
 #include <cmath>               // Pour les calculs mathématiques (cos, sin, sqrt)
@@ -10,7 +9,7 @@
 #include "LiDAR.hpp"
 #include "Camera.hpp"
 
-// On dit au compilateur qu'on utilise les noms standards (évite d'écrire std:: et cv:: partout)
+// (évite d'écrire std:: et cv:: partout)
 using namespace std;
 using namespace cv;
 
