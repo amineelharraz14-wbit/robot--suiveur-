@@ -10,6 +10,7 @@ set(SOURCES
     src/Robot.cpp
     src/Camera.cpp
     src/LiDAR.cpp
+    src/BehaviorManager.cpp
 )
 
 # --- Configuration d'OpenCV ---

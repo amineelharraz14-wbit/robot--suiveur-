@@ -1,8 +1,0 @@
-# Ignorer le dossier de compilation
-build/
-
-# Ignorer les exécutables et fichiers systèmes
-*.exe
-*.dll
-.vscode/
-.DS_Store

@@ -8,6 +8,7 @@
 #include "Robot.hpp"
 #include "LiDAR.hpp"
 #include "Camera.hpp"
+#include "BehaviorManager.hpp"
 
 // (évite d'écrire std:: et cv:: partout)
 using namespace std;
@@ -77,7 +78,7 @@ void dessiner_tout(Mat& image, Robot& robot, vector<double>& lasers, double but_
         int fin_y = centre_y - (int)((robot.y + distance * sin(angle_rayon)) * echelle);
         
         // Dessiner la ligne verte
-        line(image, Point(px_robot, py_robot), Point(fin_x, fin_y), Scalar(0, 100, 0), 1);
+        line(image, Point(px_robot, py_robot), Point(fin_x, fin_y), Scalar(0, 255, 0), 1);
     }
 
     // --- D. DESSINER LE CORPS DU ROBOT (Rouge) ---
