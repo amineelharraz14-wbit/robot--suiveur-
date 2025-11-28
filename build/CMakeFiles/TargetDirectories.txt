@@ -1,3 +1,0 @@
-/home/med/Projet_Final/build/CMakeFiles/robotsim.dir
-/home/med/Projet_Final/build/CMakeFiles/edit_cache.dir
-/home/med/Projet_Final/build/CMakeFiles/rebuild_cache.dir
