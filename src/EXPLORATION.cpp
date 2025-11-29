@@ -1,4 +1,4 @@
-#include "Exploration.h"
+#include "Exploration.hpp"
 #include <queue>
 #include <opencv2/opencv.hpp>
 

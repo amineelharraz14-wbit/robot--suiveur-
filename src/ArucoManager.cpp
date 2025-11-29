@@ -1,4 +1,4 @@
-#include "ArucoManager.h"
+#include "ArucoManager.hpp"
 #include <opencv2/opencv.hpp>
 
 ArucoManager::ArucoManager() : currentBehavior(0) {
