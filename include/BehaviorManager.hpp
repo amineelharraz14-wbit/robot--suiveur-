@@ -3,33 +3,30 @@
 
 #include <iostream>
 #include <optional>
-
 #include "Robot.hpp"
 #include "LiDAR.hpp"
 #include "Camera.hpp"
-// #include "Keyboard.hpp"
-// #include "Exploration.hpp"
-// #include "WallFollow.hpp"
-// #include "PathPlanner.hpp"
+#include "KeyboardControl.hpp"
+#include "Exploration.hpp"
+#include "WallFollow.hpp"
+#include "PathPlanner.hpp"
 
-// COMPORTEMENTS
+// Enum des comportements
 enum class BehaviorType {
-    MANUAL,        // Contrôle manuel
-    EXPLORE,       // Exploration automatique
-    WALL_FOLLOW,   // Suivi de mur
-    RETURN_HOME    // Retour au point d'origine
+    MANUAL = 1,         // ID tag : 1
+    EXPLORE = 2,        // ID tag : 2
+    WALL_FOLLOW = 3,    // ID tag : 3
+    RETURN_HOME = 99    // Interne (pas de tag)
 };
-
 
 // CLASS BehaviorManager
 class BehaviorManager {
 public:
-
-    // Constructeur recevant les modules (passés par référence)
-    BehaviorManager(Keyboard& k, 
-                    Exploration& e, 
-                    WallFollow& w,
-                    PathPlanner& p);
+    // Constructeur qui crée les modules comportement
+    BehaviorManager();
+    
+    // Destructeur
+    ~BehaviorManager() = default;
 
     // Met à jour le comportement selon un tag ArUco
     void SetBehavior(std::optional<int> tagId);
@@ -37,19 +34,21 @@ public:
     // Exécute le comportement actif
     void update(Robot& robot, LiDAR& lidar, Camera& camera);
 
-private:
+    // Obtenir le comportement actuel
+    BehaviorType getCurrentBehavior() const;
 
+private:
     // Comportement actif
     BehaviorType activeBehavior = BehaviorType::MANUAL;
 
     // Mémorise le dernier tag pour la persistance
     int lastId = -1;
 
-    // Références vers les modules externes
-    Keyboard& keyboard;
-    Exploration& exploration;
-    WallFollow& wallFollow;
-    PathPlanner& pathPlanner;
+    // Modules de comportement (créés dynamiquement)
+    KeyboardControl keyboard;
+    Exploration exploration;
+    WallFollow wallFollow;
+    PathPlanner pathPlanner;
 };
 
 #endif

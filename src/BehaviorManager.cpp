@@ -1,98 +1,94 @@
-#include <iostream>
 #include "BehaviorManager.hpp"
+#include <iostream>
 
-// Constructeur des références
-BehaviorManager::BehaviorManager(Keyboard& k, Exploration& e, WallFollow& w, PathPlanner& p) 
-    : keyboard(k),
-      exploration(e),
-      wallFollow(w),
-      pathPlanner(p),
-{}
+using namespace std;
 
+// Constructeur : initialiser tous les modules
+BehaviorManager::BehaviorManager()
+    : activeBehavior(BehaviorType::MANUAL),
+      lastId(-1),
+      keyboard(),
+      exploration(),
+      wallFollow(),
+      pathPlanner() {
+    cout << "[BehaviorManager] Initialisé avec mode MANUEL" << endl;
+}
 
 // SetBehavior : reçoit un ID et active le comportement
-void BehaviorManager::SetBehavior(std::optional<int> tagId)
-{
-    // Aucun tag détecté 
+void BehaviorManager::SetBehavior(std::optional<int> tagId) {
+    // Aucun tag détecté
     if (!tagId.has_value())
         return;
 
     int id = tagId.value();
 
-    // Persistance
+    // Persistance : ne change que si ID différent
     if (id == lastId)
         return;
 
-    // mémoriser le tag
+    // Mémoriser le tag
     lastId = id;
 
-    // Sélection du comportement selon l’ID
-    switch(id)
-    {
+    // Sélection du comportement selon l'ID
+    switch (id) {
         case 1:
             activeBehavior = BehaviorType::MANUAL;
-            std::cout << "mode MANUEL activé" << std::endl;
+            cout << "[BehaviorManager] Mode MANUEL activé (Tag ID: 1)" << endl;
             break;
 
         case 2:
             activeBehavior = BehaviorType::EXPLORE;
-            exploration.reset(); // restart l'exploration
-            std::cout << "mode EXPLORATION activé" << std::endl;
+            exploration.reset();  // Réinitialiser l'exploration
+            cout << "[BehaviorManager] Mode EXPLORATION activé (Tag ID: 2)" << endl;
             break;
 
         case 3:
             activeBehavior = BehaviorType::WALL_FOLLOW;
-            std::cout << "mode WALL FOLLOW activé" << std::endl;
+            cout << "[BehaviorManager] Mode WALL FOLLOW activé (Tag ID: 3)" << endl;
             break;
 
         default:
-            // Tag inconnu
-            std::cout << " Tag inconnu : " << std::endl;
+            cout << "[BehaviorManager] Tag inconnu : " << id << endl;
             break;
     }
 }
 
-
-// exécute le comportement actif 
-void BehaviorManager::update(Robot& robot, LiDAR& lidar, Camera& camera)
-{
-    switch(activeBehavior)
-    {
+// Exécute le comportement actif
+void BehaviorManager::update(Robot& robot, LiDAR& lidar, Camera& camera) {
+    switch (activeBehavior) {
         // Contrôle manuel : on lit le clavier
         case BehaviorType::MANUAL:
             keyboard.update(robot);
             break;
 
-
         // Exploration : le robot construit la carte + se déplace
         case BehaviorType::EXPLORE:
             exploration.update(robot, lidar);
-
-            // Fin de l’exploration
-            if (exploration.finish())
-            {
-                std::cout << "Exploration terminée : Retour a l'origine" << std::endl;
+            // Fin de l'exploration
+            if (exploration.finish()) {
+                cout << "[BehaviorManager] Exploration terminée : Retour a l'origine" << endl;
                 activeBehavior = BehaviorType::RETURN_HOME;
                 pathPlanner.resetOrigin();
             }
             break;
 
-
-        // wall follow
+        // Wall follow
         case BehaviorType::WALL_FOLLOW:
             wallFollow.update(robot, lidar);
             break;
 
-
         // Retour à la position d'origine
         case BehaviorType::RETURN_HOME:
             pathPlanner.update(robot);
-
-            if (pathPlanner.arrived())
-            {
-                std::cout << "Le robot a atteint  l'origine : mode manuel" << std::endl;
+            if (pathPlanner.arrived()) {
+                cout << "[BehaviorManager] Le robot a atteint l'origine : mode manuel" << endl;
                 activeBehavior = BehaviorType::MANUAL;
+                lastId = -1;  // Réinitialiser pour pouvoir changer de comportement
             }
             break;
     }
+}
+
+BehaviorType BehaviorManager::getCurrentBehavior() const {
+    return activeBehavior;
 }
