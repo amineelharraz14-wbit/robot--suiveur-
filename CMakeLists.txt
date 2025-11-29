@@ -12,9 +12,10 @@ set(SOURCES
     src/LiDAR.cpp
     src/BehaviorManager.cpp
     src/KeyboardControl.cpp
-    src/Exploration.cpp
+    src/EXPLORATION.cpp
     src/PathPlanner.cpp
     src/WallFollow.cpp
+    src/ArucoManager.cpp
 )
 
 # --- Configuration d'OpenCV ---
