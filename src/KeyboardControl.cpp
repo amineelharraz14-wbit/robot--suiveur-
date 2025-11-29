@@ -9,25 +9,25 @@ void KeyboardControl::update(Robot& robot) {
     switch (key) {
         case 'z':
         case 'Z':
-            robot.deplacer(STEP_FORWARD, 0, 0.05);  // Avancer
+            robot.deplacer(STEP_FORWARD, 0, 0.50);  // Avancer
             std::cout << "[Clavier] Avancer -> (" << robot.x << ", " << robot.y << ")" << std::endl;
             break;
             
         case 's':
         case 'S':
-            robot.deplacer(-STEP_FORWARD, 0, 0.05);  // Reculer
+            robot.deplacer(-STEP_FORWARD, 0, 0.50);  // Reculer
             std::cout << "[Clavier] Reculer" << std::endl;
             break;
             
         case 'q':
         case 'Q':
-            robot.deplacer(0, ANGLE_ROTATION, 0.05);  // Tourner gauche
+            robot.deplacer(0, ANGLE_ROTATION, 0.50);  // Tourner gauche
             std::cout << "[Clavier] Tourner gauche" << std::endl;
             break;
             
         case 'd':
         case 'D':
-            robot.deplacer(0, -ANGLE_ROTATION, 0.05);  // Tourner droite
+            robot.deplacer(0, -ANGLE_ROTATION, 0.50);  // Tourner droite
             std::cout << "[Clavier] Tourner droite" << std::endl;
         break;
 }
