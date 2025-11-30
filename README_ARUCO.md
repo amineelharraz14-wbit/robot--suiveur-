@@ -1,6 +1,6 @@
 # ArUco tags & robot behaviors
 
-Ce fichier décrit comment les tags ArUco sont utilisés dans le projet et comment tester localement.
+Ce fichier décrit le fonctionnement de ArucoManager  et comment tester localement.
 
 Tags attendus (par défaut) :
 - Tag ID 0  -> comportement EXPLORATION automatique
@@ -17,10 +17,3 @@ Notes de debug (headless CI/container) :
   2. Lancez `cd build && ./robotsim`.
   3. Présentez un tag ArUco correspondant (DICT_6X6_250 par défaut) devant la webcam ou utilisez `data/test_aruco.png` qui doit contenir un marqueur valide.
 
-Améliorations proposées :
-- Rendre la table de mapping ID→comportement configurable depuis un fichier JSON.
-- Retourner et prioriser plusieurs marqueurs si plusieurs sont visibles (déjà géré par la nouvelle implémentation avec priorité).
-- Ajouter estimation de pose avec `estimatePoseSingleMarkers` quand vous avez la calibration de la caméra.
-
-Si vous voulez, je peux :
-- Générer automatiquement 3 images de test ArUco (id 0, 5, 10) dans `data/` et ajouter un petit test GUI / headless qui simule leur présence pour vérifier le comportement du robot.
