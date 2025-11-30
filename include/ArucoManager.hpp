@@ -1,5 +1,5 @@
-#ifndef ARUCOMANAGER_H
-#define ARUCOMANAGER_H
+#ifndef ARUCO_MANAGER_H
+#define ARUCO_MANAGER_H
 #include <opencv2/core.hpp>
 #include <opencv2/aruco.hpp>
 
@@ -22,4 +22,4 @@ private:
     int currentBehavior; // 0: manuel, 1: exploration, 2: wall-following, etc.
 };
 
-#endif // ARUCOMANAGER_H
+#endif // ARUCO_MANAGER_H
