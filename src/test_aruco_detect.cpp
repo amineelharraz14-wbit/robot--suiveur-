@@ -29,20 +29,17 @@ int main() {
         std::cout << "Wrote annotated image to /tmp/aruco_debug_out_manager.png" << std::endl;
     }
 
-    // Generate and test 3 synthetic markers
+    // Generate and test small synthetic markers (internal) just to check detectMarkers
     auto dict = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_6X6_250);
     for (int testId : {0,5,10}) {
-        cv::Mat marker; cv::aruco::drawMarker(dict, testId, 200, marker, 1);
-        std::string p = "/tmp/marker_" + std::to_string(testId) + ".png"; cv::imwrite(p, marker);
+        cv::Mat marker; cv::aruco::drawMarker(dict, testId, 400, marker, 1);
         std::vector<int> ids; std::vector<std::vector<cv::Point2f>> corners; cv::aruco::detectMarkers(marker, dict, corners, ids);
         std::cout << "synthetic " << testId << ": found=" << ids.size() << std::endl;
     }
 
-    // Also test ArucoManager directly on the generated marker files in data/ (multiple sizes)
-    std::vector<int> sizes = {200, 400, 800};
+    // Also test ArucoManager directly on the generated marker files in data/
     for (int testId : {0,5,10}) {
-        for (int s : sizes) {
-            std::string path = "../data/marker_" + std::to_string(testId) + "_" + std::to_string(s) + ".png";
+        std::string path = "../data/marker_" + std::to_string(testId) + ".png";
         cv::Mat img2 = cv::imread(path);
         if (img2.empty()) { std::cerr << "Failed reading generated marker: " << path << std::endl; continue; }
         cv::Mat out2;
@@ -52,7 +49,6 @@ int main() {
             std::cout << "IDs: "; for (int id : r2) std::cout << id << " "; std::cout << std::endl;
             cv::imwrite((std::string)"/tmp/aruco_out_" + std::to_string(testId) + ".png", out2);
             std::cout << "Wrote /tmp/aruco_out_" << testId << ".png" << std::endl;
-        }
         }
     }
     return 0;
