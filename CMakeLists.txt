@@ -15,6 +15,7 @@ set(SOURCES
     src/Exploration.cpp
     src/PathPlanner.cpp
     src/WallFollow.cpp
+    src/ArucoManager.cpp
 )
 
 # --- Configuration d'OpenCV ---

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <algorithm>
 #include <optional> // Nécessaire pour communiquer avec BehaviorManager
 #include <opencv2/opencv.hpp>
 
@@ -13,6 +14,10 @@
 #include "LiDAR.hpp"
 #include "Camera.hpp"
 #include "BehaviorManager.hpp" 
+#include "ArucoManager.hpp"
+#include "OccupancyGrid.hpp"
+#include "Exploration.hpp"
+
 
 using namespace cv;
 using namespace std;
@@ -89,6 +94,16 @@ int main() {
     // --- B. INITIALISATION INTELLIGENCE (TRAVAIL COLLEGUES) ---
     BehaviorManager cerveau; 
 
+    // --- NOUVEAU: Module ArUco pour la détection de tags ---
+    ArucoManager monAruco;
+
+    // --- NOUVEAU: Occupancy grid (taille en cellules, 1 cellule = 1m)
+    // On crée la grille à l'échelle de la carte (10 pixels == 1m dans la simulation)
+    int pixels_per_m = 10; // doit rester cohérent avec LiDAR
+    int grid_w = carte_visu.cols / pixels_per_m;
+    int grid_h = carte_visu.rows / pixels_per_m;
+    OccupancyGrid occupancy(grid_w, grid_h);
+
     // --- C. BOUCLE PRINCIPALE ---
     while (true) {
         
@@ -107,16 +122,35 @@ int main() {
         // =============================================================
         // ETAPE 2 : VISION (SIMULATION DU MODULE ARUCO)
         // =============================================================
-        // Normalement, ici, le module ArucoManager analyse l'image.
-        // EN ATTENDANT, on simule la détection avec le clavier pour tester.
-        
-        std::optional<int> tagDetecte = std::nullopt; // Par défaut : rien vu
-        
-        int touche = waitKey(50); // Attend 50ms une touche
+        // Normalement, le module ArucoManager analyse l'image et donne un tag.
+        // Si la caméra est inactive ou ne voit rien, on garde le fallback clavier.
 
-        if (touche == '1') tagDetecte = 1; // On simule qu'on a vu le Tag 1
-        if (touche == '2') tagDetecte = 2; // On simule qu'on a vu le Tag 2
-        if (touche == '3') tagDetecte = 3; // On simule qu'on a vu le Tag 3
+        std::optional<int> tagDetecte = std::nullopt; // Par défaut : rien vu
+
+        // Detection ArUco si on a une image
+        cv::Mat arucoFrame;
+        if (!image_actuelle.empty()) {
+            int detectedId = monAruco.detectAruco(image_actuelle, arucoFrame);
+            if (detectedId != -1) {
+                // ArucoManager encode son comportement interne (0=MANUAL,1=EXPLORATION,2=WALLFOLLOW)
+                // BehaviorManager attend les tags 1=MANUAL,2=EXPLORE,3=WALL_FOLLOW
+                int a_behavior = monAruco.getCurrentBehavior();
+                int mappedTag = -1;
+                if (a_behavior == 0) mappedTag = 1;
+                else if (a_behavior == 1) mappedTag = 2;
+                else if (a_behavior == 2) mappedTag = 3;
+
+                if (mappedTag != -1) tagDetecte = mappedTag;
+            }
+        }
+
+        // Fallback clavier pour debug (toujours pris en compte, mais n'écrase pas si ArUco a trouvé un tag)
+        int touche = waitKey(50); // Attend 50ms une touche
+        if (!tagDetecte.has_value()) {
+            if (touche == '1') tagDetecte = 1; // On simule qu'on a vu le Tag 1
+            if (touche == '2') tagDetecte = 2; // On simule qu'on a vu le Tag 2
+            if (touche == '3') tagDetecte = 3; // On simule qu'on a vu le Tag 3
+        }
         if (touche == 27) break; // Echap pour quitter
 
         // On envoie l'info au cerveau
@@ -154,9 +188,50 @@ int main() {
         
         putText(ecran, texte_mode, Point(10, 30), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(0,0,255), 2);
 
+        // === Occupancy grid : mettre à jour à partir du scan et afficher ===
+        // On transforme les mesures en cellules de la grille
+        double meters_per_cell = 1.0; // 1 cellule = 1m
+        int gx_center = occupancy.width / 2;
+        int gy_center = occupancy.height / 2;
+        double step = 0.25; // incréments en mètres pour remplir la grille
+        double max_dist = 10.0;
+
+        for (int i = 0; i < 360; ++i) {
+            double dist = scan_visu[i];
+            double ang = monRobot.theta + (i * M_PI / 180.0) - M_PI;
+
+            // marquer les cellules parcourues comme explorées (1)
+            double travelled = 0.0;
+            while (travelled < std::min(dist, max_dist)) {
+                double tx = monRobot.x + travelled * cos(ang);
+                double ty = monRobot.y + travelled * sin(ang);
+                int cx = gx_center + (int)std::round(tx / meters_per_cell);
+                int cy = gy_center - (int)std::round(ty / meters_per_cell);
+                occupancy.setCell(cx, cy, 1);
+                travelled += step;
+            }
+
+            // si obstacle touche, marquer la cellule comme obstacle (2)
+            if (dist < max_dist) {
+                double tx = monRobot.x + dist * cos(ang);
+                double ty = monRobot.y + dist * sin(ang);
+                int cx = gx_center + (int)std::round(tx / meters_per_cell);
+                int cy = gy_center - (int)std::round(ty / meters_per_cell);
+                occupancy.setCell(cx, cy, 2);
+            }
+        }
+
         // Afficher les fenêtres
         imshow("Simulation Robotique", ecran);
-        if(!image_actuelle.empty()) imshow("Vue Camera Robot", image_actuelle);
+
+        // Vue caméra : si ArUco a annoté une image, montrer celle-ci, sinon la frame brute
+        if (!arucoFrame.empty()) imshow("Vue Camera Robot", arucoFrame);
+        else if(!image_actuelle.empty()) imshow("Vue Camera Robot", image_actuelle);
+
+        // Visualisation occupancy grid (agrandie pour être lisible)
+        cv::Mat occ_vis = occupancy.visualize();
+        cv::resize(occ_vis, occ_vis, cv::Size(occ_vis.cols * pixels_per_m, occ_vis.rows * pixels_per_m), 0, 0, cv::INTER_NEAREST);
+        imshow("Occupancy Grid", occ_vis);
     }
 
     return 0;

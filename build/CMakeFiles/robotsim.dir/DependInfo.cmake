@@ -8,6 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+<<<<<<< HEAD
+=======
+  "/workspaces/projet_info/src/ArucoManager.cpp" "CMakeFiles/robotsim.dir/src/ArucoManager.cpp.o" "gcc" "CMakeFiles/robotsim.dir/src/ArucoManager.cpp.o.d"
+>>>>>>> 3f157c493f19409e5947c386d71602678696fa75
   "/workspaces/projet_info/src/BehaviorManager.cpp" "CMakeFiles/robotsim.dir/src/BehaviorManager.cpp.o" "gcc" "CMakeFiles/robotsim.dir/src/BehaviorManager.cpp.o.d"
   "/workspaces/projet_info/src/Camera.cpp" "CMakeFiles/robotsim.dir/src/Camera.cpp.o" "gcc" "CMakeFiles/robotsim.dir/src/Camera.cpp.o.d"
   "/workspaces/projet_info/src/Exploration.cpp" "CMakeFiles/robotsim.dir/src/Exploration.cpp.o" "gcc" "CMakeFiles/robotsim.dir/src/Exploration.cpp.o.d"

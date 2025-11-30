@@ -129,6 +129,33 @@ robotsim/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/build
 .PHONY : robotsim/fast
 
+<<<<<<< HEAD
+=======
+src/ArucoManager.o: src/ArucoManager.cpp.o
+.PHONY : src/ArucoManager.o
+
+# target to build an object file
+src/ArucoManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/ArucoManager.cpp.o
+.PHONY : src/ArucoManager.cpp.o
+
+src/ArucoManager.i: src/ArucoManager.cpp.i
+.PHONY : src/ArucoManager.i
+
+# target to preprocess a source file
+src/ArucoManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/ArucoManager.cpp.i
+.PHONY : src/ArucoManager.cpp.i
+
+src/ArucoManager.s: src/ArucoManager.cpp.s
+.PHONY : src/ArucoManager.s
+
+# target to generate assembly for a file
+src/ArucoManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/ArucoManager.cpp.s
+.PHONY : src/ArucoManager.cpp.s
+
+>>>>>>> 3f157c493f19409e5947c386d71602678696fa75
 src/BehaviorManager.o: src/BehaviorManager.cpp.o
 .PHONY : src/BehaviorManager.o
 
@@ -354,6 +381,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... robotsim"
+<<<<<<< HEAD
+=======
+	@echo "... src/ArucoManager.o"
+	@echo "... src/ArucoManager.i"
+	@echo "... src/ArucoManager.s"
+>>>>>>> 3f157c493f19409e5947c386d71602678696fa75
 	@echo "... src/BehaviorManager.o"
 	@echo "... src/BehaviorManager.i"
 	@echo "... src/BehaviorManager.s"

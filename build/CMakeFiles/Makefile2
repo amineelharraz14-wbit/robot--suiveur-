@@ -81,12 +81,20 @@ clean: CMakeFiles/robotsim.dir/clean
 CMakeFiles/robotsim.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/build
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/workspaces/projet_info/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target robotsim"
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/workspaces/projet_info/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11 "Built target robotsim"
+>>>>>>> 3f157c493f19409e5947c386d71602678696fa75
 .PHONY : CMakeFiles/robotsim.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/robotsim.dir/rule: cmake_check_build_system
+<<<<<<< HEAD
 	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/projet_info/build/CMakeFiles 10
+=======
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/projet_info/build/CMakeFiles 11
+>>>>>>> 3f157c493f19409e5947c386d71602678696fa75
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/robotsim.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/projet_info/build/CMakeFiles 0
 .PHONY : CMakeFiles/robotsim.dir/rule
