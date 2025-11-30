@@ -38,6 +38,32 @@ struct OccupancyGrid {
         }
         return img;
     }
+
+    // Trace une ligne de cellules et marque les cellules traversées comme libres (1)
+    // Utilise l'algorithme de Bresenham integer pour garantir qu'on couvre
+    // toutes les cellules entre (x0,y0) et (x1,y1) incluant les extrémités.
+    void drawFreeLine(int x0, int y0, int x1, int y1) {
+        // Bresenham's line algorithm (integer)
+        int dx = std::abs(x1 - x0);
+        int sx = x0 < x1 ? 1 : -1;
+        int dy = -std::abs(y1 - y0);
+        int sy = y0 < y1 ? 1 : -1;
+        int err = dx + dy; // error value e_xy
+
+        int x = x0;
+        int y = y0;
+
+        while (true) {
+            // Mark as explored (free). Do not override an obstacle value (2)
+            if (x >= 0 && x < width && y >= 0 && y < height) {
+                if (grid[y][x] != 2) grid[y][x] = 1;
+            }
+            if (x == x1 && y == y1) break;
+            int e2 = 2 * err;
+            if (e2 >= dy) { err += dy; x += sx; }
+            if (e2 <= dx) { err += dx; y += sy; }
+        }
+    }
 };
 
 #endif

@@ -72,23 +72,25 @@ int main() {
     for (int i = 0; i < 360; ++i) {
         double dist = scan[i];
         double ang = (i * M_PI / 180.0) - M_PI;
-        double step = 0.25;
-        double travelled = 0.0;
         double maxd = 10.0;
-        while (travelled < std::min(dist, maxd)) {
-            double tx = travelled * cos(ang);
-            double ty = travelled * sin(ang);
-            int cx = gx_center + (int)std::round(tx);
-            int cy = gy_center - (int)std::round(ty);
-            occ.setCell(cx, cy, 1);
-            travelled += step;
-        }
+
+        // endpoint (either obstacle or max range)
+        double end_dist = std::min(dist, maxd);
+        double tx_end = end_dist * cos(ang);
+        double ty_end = end_dist * sin(ang);
+        int cx_end = gx_center + (int)std::round(tx_end);
+        int cy_end = gy_center - (int)std::round(ty_end);
+
+        // robot cell == center
+        int cx_robot = gx_center;
+        int cy_robot = gy_center;
+
+        // Mark all cells along the ray as free using OccupancyGrid helper
+        occ.drawFreeLine(cx_robot, cy_robot, cx_end, cy_end);
+
+        // mark endpoint as obstacle if needed
         if (dist < maxd) {
-            double tx = dist * cos(ang);
-            double ty = dist * sin(ang);
-            int cx = gx_center + (int)std::round(tx);
-            int cy = gy_center - (int)std::round(ty);
-            occ.setCell(cx, cy, 2);
+            occ.setCell(cx_end, cy_end, 2);
         }
     }
     // Count non-zero cells

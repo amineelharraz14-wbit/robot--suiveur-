@@ -234,24 +234,23 @@ int main() {
             double dist = scan_visu[i];
             double ang = monRobot.theta + (i * M_PI / 180.0) - M_PI;
 
-            // marquer les cellules parcourues comme explorées (1)
-            double travelled = 0.0;
-            while (travelled < std::min(dist, max_dist)) {
-                double tx = monRobot.x + travelled * cos(ang);
-                double ty = monRobot.y + travelled * sin(ang);
-                int cx = gx_center + (int)std::round(tx / meters_per_cell);
-                int cy = gy_center - (int)std::round(ty / meters_per_cell);
-                occupancy.setCell(cx, cy, 1);
-                travelled += step;
-            }
+            // Compute end point (either obstacle or max range)
+            double end_dist = std::min(dist, max_dist);
+            double tx_end = monRobot.x + end_dist * cos(ang);
+            double ty_end = monRobot.y + end_dist * sin(ang);
+            int cx_end = gx_center + (int)std::round(tx_end / meters_per_cell);
+            int cy_end = gy_center - (int)std::round(ty_end / meters_per_cell);
 
-            // si obstacle touche, marquer la cellule comme obstacle (2)
+            // Compute robot cell
+            int cx_robot = gx_center + (int)std::round(monRobot.x / meters_per_cell);
+            int cy_robot = gy_center - (int)std::round(monRobot.y / meters_per_cell);
+
+            // Mark all cells along the ray as free (1) using Bresenham line
+            occupancy.drawFreeLine(cx_robot, cy_robot, cx_end, cy_end);
+
+            // if obstacle was hit, mark the endpoint as obstacle (2)
             if (dist < max_dist) {
-                double tx = monRobot.x + dist * cos(ang);
-                double ty = monRobot.y + dist * sin(ang);
-                int cx = gx_center + (int)std::round(tx / meters_per_cell);
-                int cy = gy_center - (int)std::round(ty / meters_per_cell);
-                occupancy.setCell(cx, cy, 2);
+                occupancy.setCell(cx_end, cy_end, 2);
             }
         }
 
