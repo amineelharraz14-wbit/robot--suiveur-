@@ -12,7 +12,7 @@ set(SOURCES
     src/LiDAR.cpp
     src/BehaviorManager.cpp
     src/KeyboardControl.cpp
-    src/EXPLORATION.cpp
+    src/Exploration.cpp
     src/PathPlanner.cpp
     src/WallFollow.cpp
     src/ArucoManager.cpp
