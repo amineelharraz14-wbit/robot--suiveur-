@@ -96,6 +96,7 @@ int main() {
 
     // --- NOUVEAU: Module ArUco pour la détection de tags ---
     ArucoManager monAruco;
+    // ArUcoManager: use detectMarkers only (no template fallback by design)
 
     // --- NOUVEAU: Occupancy grid (taille en cellules, 1 cellule = 1m)
     // On crée la grille à l'échelle de la carte (10 pixels == 1m dans la simulation)
@@ -130,17 +131,20 @@ int main() {
         // Detection ArUco si on a une image
         cv::Mat arucoFrame;
         if (!image_actuelle.empty()) {
-            int detectedId = monAruco.detectAruco(image_actuelle, arucoFrame);
-            if (detectedId != -1) {
-                // ArucoManager encode son comportement interne (0=MANUAL,1=EXPLORATION,2=WALLFOLLOW)
-                // BehaviorManager attend les tags 1=MANUAL,2=EXPLORE,3=WALL_FOLLOW
-                int a_behavior = monAruco.getCurrentBehavior();
-                int mappedTag = -1;
-                if (a_behavior == 0) mappedTag = 1;
-                else if (a_behavior == 1) mappedTag = 2;
-                else if (a_behavior == 2) mappedTag = 3;
+            std::vector<int> detectedIds = monAruco.detectAruco(image_actuelle, arucoFrame);
+                if (!detectedIds.empty()) {
+                    // Si plusieurs marqueurs sont visibles, appliquer une priorité claire
+                    // Priorité choisie ici : Manuel (id 10) > Exploration (id 0) > Wall follow (id 5)
+                    int mappedTag = -1;
+                    bool foundManual = std::find(detectedIds.begin(), detectedIds.end(), 10) != detectedIds.end();
+                    bool foundExplore = std::find(detectedIds.begin(), detectedIds.end(), 0) != detectedIds.end();
+                    bool foundWall = std::find(detectedIds.begin(), detectedIds.end(), 5) != detectedIds.end();
 
-                if (mappedTag != -1) tagDetecte = mappedTag;
+                    if (foundManual) mappedTag = 1;      // Tag 10 -> Manuelle
+                    else if (foundExplore) mappedTag = 2; // Tag 0 -> Exploration
+                    else if (foundWall) mappedTag = 3;    // Tag 5 -> Wall follow
+
+                    if (mappedTag != -1) tagDetecte = mappedTag;
             }
         }
 
