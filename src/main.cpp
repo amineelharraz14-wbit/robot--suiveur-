@@ -105,6 +105,14 @@ int main() {
     int grid_h = carte_visu.rows / pixels_per_m;
     OccupancyGrid occupancy(grid_w, grid_h);
 
+    // --- Positionner le robot initialement en haut-gauche de la grille
+    // Dans notre convention, (0,0) est le centre de la carte; pour rapprocher
+    // le robot en haut-gauche on fixe ses coordonnées pour correspondre à
+    // la cellule (0,0) de la grille.
+    double meters_per_cell_init = 1.0; // 1 cellule = 1m (même valeur que plus loin)
+    monRobot.x = - (grid_w / 2.0) * meters_per_cell_init; // positionne en X pour atteindre colonne 0
+    monRobot.y =   (grid_h / 2.0) * meters_per_cell_init; // positionne en Y pour atteindre ligne 0
+
     // --- C. BOUCLE PRINCIPALE ---
     while (true) {
         
@@ -225,8 +233,7 @@ int main() {
             }
         }
 
-        // Afficher les fenêtres
-        imshow("Simulation Robotique", ecran);
+        // === Affichage : on affiche seulement l'Occupancy Grid (pas la carte d'origine)
 
         // Vue caméra : si ArUco a annoté une image, montrer celle-ci, sinon la frame brute
         if (!arucoFrame.empty()) imshow("Vue Camera Robot", arucoFrame);
@@ -235,6 +242,17 @@ int main() {
         // Visualisation occupancy grid (agrandie pour être lisible)
         cv::Mat occ_vis = occupancy.visualize();
         cv::resize(occ_vis, occ_vis, cv::Size(occ_vis.cols * pixels_per_m, occ_vis.rows * pixels_per_m), 0, 0, cv::INTER_NEAREST);
+
+        // Dessiner le robot sur l'occupancy grid (même logique de conversion que pour la grille)
+        int cx_cell = gx_center + (int)std::round(monRobot.x / meters_per_cell_init);
+        int cy_cell = gy_center - (int)std::round(monRobot.y / meters_per_cell_init);
+        // Convertir en pixels sur l'image agrandie
+        int r_px = std::clamp(cx_cell * pixels_per_m, 0, occ_vis.cols-1);
+        int r_py = std::clamp(cy_cell * pixels_per_m, 0, occ_vis.rows-1);
+        // Cercle bleu + direction
+        cv::circle(occ_vis, cv::Point(r_px, r_py), 8, cv::Scalar(255,0,0), -1);
+        cv::line(occ_vis, cv::Point(r_px, r_py), cv::Point(r_px + (int)(20*cos(monRobot.theta)), r_py - (int)(20*sin(monRobot.theta))), cv::Scalar(255,255,255), 2);
+
         imshow("Occupancy Grid", occ_vis);
     }
 
