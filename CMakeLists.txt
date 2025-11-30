@@ -5,17 +5,20 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Définir les sources (les fichiers .cpp)
-set(SOURCES
+add_executable(robotsim
     src/main.cpp
     src/Robot.cpp
-    src/Camera.cpp
     src/LiDAR.cpp
+    src/Camera.cpp
     src/BehaviorManager.cpp
-    src/KeyboardControl.cpp
-    src/Exploration.cpp
-    src/PathPlanner.cpp
-    src/WallFollow.cpp
     src/ArucoManager.cpp
+    src/Exploration.cpp
+    src/WallFollow.cpp
+    src/PathPlanner.cpp
+    src/test_aruco_detect.cpp
+    src/KeyboardControl.cpp
+    src/integration_test.cpp
+
 )
 
 # --- Configuration d'OpenCV ---
