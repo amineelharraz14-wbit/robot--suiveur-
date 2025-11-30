@@ -105,13 +105,11 @@ int main() {
     int grid_h = carte_visu.rows / pixels_per_m;
     OccupancyGrid occupancy(grid_w, grid_h);
 
-    // --- Positionner le robot initialement en haut-gauche de la grille
-    // Dans notre convention, (0,0) est le centre de la carte; pour rapprocher
-    // le robot en haut-gauche on fixe ses coordonnées pour correspondre à
-    // la cellule (0,0) de la grille.
+    // --- Positionner le robot initialement dans une zone libre (pas dans le mur)
+    // Suggestion: place robot near center, slightly offset to avoid walls
     double meters_per_cell_init = 1.0; // 1 cellule = 1m (même valeur que plus loin)
-    monRobot.x = - (grid_w / 2.0) * meters_per_cell_init; // positionne en X pour atteindre colonne 0
-    monRobot.y =   (grid_h / 2.0) * meters_per_cell_init; // positionne en Y pour atteindre ligne 0
+    monRobot.x = -2.0; // 2m left of center
+    monRobot.y = 2.0;  // 2m above center
 
     // --- C. BOUCLE PRINCIPALE ---
     while (true) {
