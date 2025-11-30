@@ -22,8 +22,8 @@ using namespace std;
 // =================================================================================
 void dessiner_simulation(Mat& img, Robot& rob, vector<double>& lasers) {
     double ppm = 10.0; // Echelle : 10 pixels = 1 mètre
-    int cx = img.cols / 2;
-    int cy = img.rows / 2;
+    int cx = 0.5;
+    int cy = 0.5;
 
     // Convertir la position du robot (mètres -> pixels)
     int r_px = cx + (int)(rob.x * ppm);
