@@ -177,7 +177,31 @@ int main() {
         // Le BehaviorManager prend le robot, le lidar et la camera.
         // Il décide de la stratégie ET il déplace le robot lui-même.
         
+        // Save previous pose so we can revert if the move caused a collision
+        double prev_x = monRobot.x;
+        double prev_y = monRobot.y;
+        double prev_theta = monRobot.theta;
+
         cerveau.update(monRobot, monLidar, maCamera);
+
+        // After update, get fresh scan to update the occupancy grid and detect collisions
+        vector<double> new_scan = monLidar.scanner(monRobot.x, monRobot.y, monRobot.theta);
+        // If the robot ended up too close to an obstacle (safety distance), revert
+        const double safety_distance = 0.4; // meters
+        double min_dist = *std::min_element(new_scan.begin(), new_scan.end());
+        if (min_dist < safety_distance) {
+            // revert to previous pose
+            monRobot.x = prev_x;
+            monRobot.y = prev_y;
+            monRobot.theta = prev_theta;
+            // Recompute scan at safe pose
+            new_scan = monLidar.scanner(monRobot.x, monRobot.y, monRobot.theta);
+            // Optional: notify
+            std::cout << "[SAFETY] Move reverted: too close to wall (min_dist=" << min_dist << ")" << std::endl;
+        }
+
+        // use the fresh scan for occupancy visualization and LiDAR lines
+        scan_visu = new_scan;
 
 
         // =============================================================
@@ -243,15 +267,36 @@ int main() {
         cv::Mat occ_vis = occupancy.visualize();
         cv::resize(occ_vis, occ_vis, cv::Size(occ_vis.cols * pixels_per_m, occ_vis.rows * pixels_per_m), 0, 0, cv::INTER_NEAREST);
 
-        // Dessiner le robot sur l'occupancy grid (même logique de conversion que pour la grille)
+        // Compute robot position in occupancy-visual pixels (used to draw LiDAR rays)
         int cx_cell = gx_center + (int)std::round(monRobot.x / meters_per_cell_init);
         int cy_cell = gy_center - (int)std::round(monRobot.y / meters_per_cell_init);
-        // Convertir en pixels sur l'image agrandie
+        // Convert to pixels on the enlarged image
         int r_px = std::clamp(cx_cell * pixels_per_m, 0, occ_vis.cols-1);
         int r_py = std::clamp(cy_cell * pixels_per_m, 0, occ_vis.rows-1);
+
+        // Dessiner les rayons du LiDAR sur l'occupancy grid (pour debug)
+        for (int i = 0; i < 360; i += 4) {
+            double dist = scan_visu[i];
+            if (dist >= max_dist) continue;
+            double ang = monRobot.theta + (i * M_PI / 180.0) - M_PI;
+            double tx = monRobot.x + dist * cos(ang);
+            double ty = monRobot.y + dist * sin(ang);
+            int fx_cell = gx_center + (int)std::round(tx / meters_per_cell);
+            int fy_cell = gy_center - (int)std::round(ty / meters_per_cell);
+            int fx_px = std::clamp(fx_cell * pixels_per_m, 0, occ_vis.cols-1);
+            int fy_py = std::clamp(fy_cell * pixels_per_m, 0, occ_vis.rows-1);
+            // draw ray
+            cv::line(occ_vis, cv::Point(r_px, r_py), cv::Point(fx_px, fy_py), cv::Scalar(0,150,0), 1);
+            cv::circle(occ_vis, cv::Point(fx_px, fy_py), 2, cv::Scalar(0,0,255), -1);
+        }
+
+        // Dessiner le robot sur l'occupancy grid (même logique de conversion que pour la grille)
         // Cercle bleu + direction
-        cv::circle(occ_vis, cv::Point(r_px, r_py), 8, cv::Scalar(255,0,0), -1);
-        cv::line(occ_vis, cv::Point(r_px, r_py), cv::Point(r_px + (int)(20*cos(monRobot.theta)), r_py - (int)(20*sin(monRobot.theta))), cv::Scalar(255,255,255), 2);
+        // Cercle bleu + direction (bigger so it's clearly visible)
+        int robot_radius_px = std::max(8, (int)std::round(0.3 * pixels_per_m));
+        int dir_len = std::max(10, (int)std::round(0.7 * pixels_per_m));
+        cv::circle(occ_vis, cv::Point(r_px, r_py), robot_radius_px, cv::Scalar(255,0,0), -1);
+        cv::line(occ_vis, cv::Point(r_px, r_py), cv::Point(r_px + (int)(dir_len * cos(monRobot.theta)), r_py - (int)(dir_len * sin(monRobot.theta))), cv::Scalar(255,255,255), 2);
 
         imshow("Occupancy Grid", occ_vis);
     }

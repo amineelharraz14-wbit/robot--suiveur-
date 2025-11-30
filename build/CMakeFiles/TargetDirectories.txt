@@ -1,3 +1,6 @@
+/workspaces/projet_info/build/CMakeFiles/robotsim_lib.dir
 /workspaces/projet_info/build/CMakeFiles/robotsim.dir
+/workspaces/projet_info/build/CMakeFiles/test_aruco_detect.dir
+/workspaces/projet_info/build/CMakeFiles/integration_test.dir
 /workspaces/projet_info/build/CMakeFiles/edit_cache.dir
 /workspaces/projet_info/build/CMakeFiles/rebuild_cache.dir

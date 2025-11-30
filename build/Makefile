@@ -117,6 +117,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named robotsim_lib
+
+# Build rule for target.
+robotsim_lib: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robotsim_lib
+.PHONY : robotsim_lib
+
+# fast build rule for target.
+robotsim_lib/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/build
+.PHONY : robotsim_lib/fast
+
+#=============================================================================
 # Target rules for targets named robotsim
 
 # Build rule for target.
@@ -129,12 +142,38 @@ robotsim/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/build
 .PHONY : robotsim/fast
 
+#=============================================================================
+# Target rules for targets named test_aruco_detect
+
+# Build rule for target.
+test_aruco_detect: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_aruco_detect
+.PHONY : test_aruco_detect
+
+# fast build rule for target.
+test_aruco_detect/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_aruco_detect.dir/build.make CMakeFiles/test_aruco_detect.dir/build
+.PHONY : test_aruco_detect/fast
+
+#=============================================================================
+# Target rules for targets named integration_test
+
+# Build rule for target.
+integration_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 integration_test
+.PHONY : integration_test
+
+# fast build rule for target.
+integration_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/integration_test.dir/build.make CMakeFiles/integration_test.dir/build
+.PHONY : integration_test/fast
+
 src/ArucoManager.o: src/ArucoManager.cpp.o
 .PHONY : src/ArucoManager.o
 
 # target to build an object file
 src/ArucoManager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/ArucoManager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/ArucoManager.cpp.o
 .PHONY : src/ArucoManager.cpp.o
 
 src/ArucoManager.i: src/ArucoManager.cpp.i
@@ -142,7 +181,7 @@ src/ArucoManager.i: src/ArucoManager.cpp.i
 
 # target to preprocess a source file
 src/ArucoManager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/ArucoManager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/ArucoManager.cpp.i
 .PHONY : src/ArucoManager.cpp.i
 
 src/ArucoManager.s: src/ArucoManager.cpp.s
@@ -150,7 +189,7 @@ src/ArucoManager.s: src/ArucoManager.cpp.s
 
 # target to generate assembly for a file
 src/ArucoManager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/ArucoManager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/ArucoManager.cpp.s
 .PHONY : src/ArucoManager.cpp.s
 
 src/BehaviorManager.o: src/BehaviorManager.cpp.o
@@ -158,7 +197,7 @@ src/BehaviorManager.o: src/BehaviorManager.cpp.o
 
 # target to build an object file
 src/BehaviorManager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/BehaviorManager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/BehaviorManager.cpp.o
 .PHONY : src/BehaviorManager.cpp.o
 
 src/BehaviorManager.i: src/BehaviorManager.cpp.i
@@ -166,7 +205,7 @@ src/BehaviorManager.i: src/BehaviorManager.cpp.i
 
 # target to preprocess a source file
 src/BehaviorManager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/BehaviorManager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/BehaviorManager.cpp.i
 .PHONY : src/BehaviorManager.cpp.i
 
 src/BehaviorManager.s: src/BehaviorManager.cpp.s
@@ -174,7 +213,7 @@ src/BehaviorManager.s: src/BehaviorManager.cpp.s
 
 # target to generate assembly for a file
 src/BehaviorManager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/BehaviorManager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/BehaviorManager.cpp.s
 .PHONY : src/BehaviorManager.cpp.s
 
 src/Camera.o: src/Camera.cpp.o
@@ -182,7 +221,7 @@ src/Camera.o: src/Camera.cpp.o
 
 # target to build an object file
 src/Camera.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/Camera.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/Camera.cpp.o
 .PHONY : src/Camera.cpp.o
 
 src/Camera.i: src/Camera.cpp.i
@@ -190,7 +229,7 @@ src/Camera.i: src/Camera.cpp.i
 
 # target to preprocess a source file
 src/Camera.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/Camera.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/Camera.cpp.i
 .PHONY : src/Camera.cpp.i
 
 src/Camera.s: src/Camera.cpp.s
@@ -198,7 +237,7 @@ src/Camera.s: src/Camera.cpp.s
 
 # target to generate assembly for a file
 src/Camera.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/Camera.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/Camera.cpp.s
 .PHONY : src/Camera.cpp.s
 
 src/Exploration.o: src/Exploration.cpp.o
@@ -206,7 +245,7 @@ src/Exploration.o: src/Exploration.cpp.o
 
 # target to build an object file
 src/Exploration.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/Exploration.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/Exploration.cpp.o
 .PHONY : src/Exploration.cpp.o
 
 src/Exploration.i: src/Exploration.cpp.i
@@ -214,7 +253,7 @@ src/Exploration.i: src/Exploration.cpp.i
 
 # target to preprocess a source file
 src/Exploration.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/Exploration.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/Exploration.cpp.i
 .PHONY : src/Exploration.cpp.i
 
 src/Exploration.s: src/Exploration.cpp.s
@@ -222,7 +261,7 @@ src/Exploration.s: src/Exploration.cpp.s
 
 # target to generate assembly for a file
 src/Exploration.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/Exploration.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/Exploration.cpp.s
 .PHONY : src/Exploration.cpp.s
 
 src/KeyboardControl.o: src/KeyboardControl.cpp.o
@@ -230,7 +269,7 @@ src/KeyboardControl.o: src/KeyboardControl.cpp.o
 
 # target to build an object file
 src/KeyboardControl.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/KeyboardControl.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/KeyboardControl.cpp.o
 .PHONY : src/KeyboardControl.cpp.o
 
 src/KeyboardControl.i: src/KeyboardControl.cpp.i
@@ -238,7 +277,7 @@ src/KeyboardControl.i: src/KeyboardControl.cpp.i
 
 # target to preprocess a source file
 src/KeyboardControl.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/KeyboardControl.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/KeyboardControl.cpp.i
 .PHONY : src/KeyboardControl.cpp.i
 
 src/KeyboardControl.s: src/KeyboardControl.cpp.s
@@ -246,7 +285,7 @@ src/KeyboardControl.s: src/KeyboardControl.cpp.s
 
 # target to generate assembly for a file
 src/KeyboardControl.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/KeyboardControl.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/KeyboardControl.cpp.s
 .PHONY : src/KeyboardControl.cpp.s
 
 src/LiDAR.o: src/LiDAR.cpp.o
@@ -254,7 +293,7 @@ src/LiDAR.o: src/LiDAR.cpp.o
 
 # target to build an object file
 src/LiDAR.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/LiDAR.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/LiDAR.cpp.o
 .PHONY : src/LiDAR.cpp.o
 
 src/LiDAR.i: src/LiDAR.cpp.i
@@ -262,7 +301,7 @@ src/LiDAR.i: src/LiDAR.cpp.i
 
 # target to preprocess a source file
 src/LiDAR.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/LiDAR.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/LiDAR.cpp.i
 .PHONY : src/LiDAR.cpp.i
 
 src/LiDAR.s: src/LiDAR.cpp.s
@@ -270,7 +309,7 @@ src/LiDAR.s: src/LiDAR.cpp.s
 
 # target to generate assembly for a file
 src/LiDAR.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/LiDAR.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/LiDAR.cpp.s
 .PHONY : src/LiDAR.cpp.s
 
 src/PathPlanner.o: src/PathPlanner.cpp.o
@@ -278,7 +317,7 @@ src/PathPlanner.o: src/PathPlanner.cpp.o
 
 # target to build an object file
 src/PathPlanner.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/PathPlanner.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/PathPlanner.cpp.o
 .PHONY : src/PathPlanner.cpp.o
 
 src/PathPlanner.i: src/PathPlanner.cpp.i
@@ -286,7 +325,7 @@ src/PathPlanner.i: src/PathPlanner.cpp.i
 
 # target to preprocess a source file
 src/PathPlanner.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/PathPlanner.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/PathPlanner.cpp.i
 .PHONY : src/PathPlanner.cpp.i
 
 src/PathPlanner.s: src/PathPlanner.cpp.s
@@ -294,7 +333,7 @@ src/PathPlanner.s: src/PathPlanner.cpp.s
 
 # target to generate assembly for a file
 src/PathPlanner.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/PathPlanner.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/PathPlanner.cpp.s
 .PHONY : src/PathPlanner.cpp.s
 
 src/Robot.o: src/Robot.cpp.o
@@ -302,7 +341,7 @@ src/Robot.o: src/Robot.cpp.o
 
 # target to build an object file
 src/Robot.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/Robot.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/Robot.cpp.o
 .PHONY : src/Robot.cpp.o
 
 src/Robot.i: src/Robot.cpp.i
@@ -310,7 +349,7 @@ src/Robot.i: src/Robot.cpp.i
 
 # target to preprocess a source file
 src/Robot.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/Robot.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/Robot.cpp.i
 .PHONY : src/Robot.cpp.i
 
 src/Robot.s: src/Robot.cpp.s
@@ -318,7 +357,7 @@ src/Robot.s: src/Robot.cpp.s
 
 # target to generate assembly for a file
 src/Robot.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/Robot.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/Robot.cpp.s
 .PHONY : src/Robot.cpp.s
 
 src/WallFollow.o: src/WallFollow.cpp.o
@@ -326,7 +365,7 @@ src/WallFollow.o: src/WallFollow.cpp.o
 
 # target to build an object file
 src/WallFollow.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/WallFollow.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/WallFollow.cpp.o
 .PHONY : src/WallFollow.cpp.o
 
 src/WallFollow.i: src/WallFollow.cpp.i
@@ -334,7 +373,7 @@ src/WallFollow.i: src/WallFollow.cpp.i
 
 # target to preprocess a source file
 src/WallFollow.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/WallFollow.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/WallFollow.cpp.i
 .PHONY : src/WallFollow.cpp.i
 
 src/WallFollow.s: src/WallFollow.cpp.s
@@ -342,8 +381,32 @@ src/WallFollow.s: src/WallFollow.cpp.s
 
 # target to generate assembly for a file
 src/WallFollow.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/WallFollow.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim_lib.dir/build.make CMakeFiles/robotsim_lib.dir/src/WallFollow.cpp.s
 .PHONY : src/WallFollow.cpp.s
+
+src/integration_test.o: src/integration_test.cpp.o
+.PHONY : src/integration_test.o
+
+# target to build an object file
+src/integration_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/integration_test.dir/build.make CMakeFiles/integration_test.dir/src/integration_test.cpp.o
+.PHONY : src/integration_test.cpp.o
+
+src/integration_test.i: src/integration_test.cpp.i
+.PHONY : src/integration_test.i
+
+# target to preprocess a source file
+src/integration_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/integration_test.dir/build.make CMakeFiles/integration_test.dir/src/integration_test.cpp.i
+.PHONY : src/integration_test.cpp.i
+
+src/integration_test.s: src/integration_test.cpp.s
+.PHONY : src/integration_test.s
+
+# target to generate assembly for a file
+src/integration_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/integration_test.dir/build.make CMakeFiles/integration_test.dir/src/integration_test.cpp.s
+.PHONY : src/integration_test.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -369,6 +432,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/robotsim.dir/build.make CMakeFiles/robotsim.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/test_aruco_detect.o: src/test_aruco_detect.cpp.o
+.PHONY : src/test_aruco_detect.o
+
+# target to build an object file
+src/test_aruco_detect.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_aruco_detect.dir/build.make CMakeFiles/test_aruco_detect.dir/src/test_aruco_detect.cpp.o
+.PHONY : src/test_aruco_detect.cpp.o
+
+src/test_aruco_detect.i: src/test_aruco_detect.cpp.i
+.PHONY : src/test_aruco_detect.i
+
+# target to preprocess a source file
+src/test_aruco_detect.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_aruco_detect.dir/build.make CMakeFiles/test_aruco_detect.dir/src/test_aruco_detect.cpp.i
+.PHONY : src/test_aruco_detect.cpp.i
+
+src/test_aruco_detect.s: src/test_aruco_detect.cpp.s
+.PHONY : src/test_aruco_detect.s
+
+# target to generate assembly for a file
+src/test_aruco_detect.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_aruco_detect.dir/build.make CMakeFiles/test_aruco_detect.dir/src/test_aruco_detect.cpp.s
+.PHONY : src/test_aruco_detect.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -377,7 +464,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... integration_test"
 	@echo "... robotsim"
+	@echo "... robotsim_lib"
+	@echo "... test_aruco_detect"
 	@echo "... src/ArucoManager.o"
 	@echo "... src/ArucoManager.i"
 	@echo "... src/ArucoManager.s"
@@ -405,9 +495,15 @@ help:
 	@echo "... src/WallFollow.o"
 	@echo "... src/WallFollow.i"
 	@echo "... src/WallFollow.s"
+	@echo "... src/integration_test.o"
+	@echo "... src/integration_test.i"
+	@echo "... src/integration_test.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/test_aruco_detect.o"
+	@echo "... src/test_aruco_detect.i"
+	@echo "... src/test_aruco_detect.s"
 .PHONY : help
 
 
