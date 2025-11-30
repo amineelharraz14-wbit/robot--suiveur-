@@ -174,6 +174,9 @@ CMakeFiles/robotsim.dir/src/main.cpp.o: \
  /usr/include/c++/13/tr1/modified_bessel_func.tcc \
  /usr/include/c++/13/tr1/poly_hermite.tcc \
  /usr/include/c++/13/tr1/poly_laguerre.tcc \
+<<<<<<< HEAD
+ /usr/include/c++/13/tr1/riemann_zeta.tcc /usr/include/c++/13/optional \
+=======
  /usr/include/c++/13/tr1/riemann_zeta.tcc /usr/include/c++/13/algorithm \
  /usr/include/c++/13/bits/stl_algo.h \
  /usr/include/c++/13/bits/algorithmfwd.h \
@@ -182,6 +185,7 @@ CMakeFiles/robotsim.dir/src/main.cpp.o: \
  /usr/include/c++/13/bits/stl_tempbuf.h \
  /usr/include/c++/13/pstl/glue_algorithm_defs.h \
  /usr/include/c++/13/pstl/execution_defs.h /usr/include/c++/13/optional \
+>>>>>>> 3f157c493f19409e5947c386d71602678696fa75
  /usr/include/c++/13/bits/enable_special_members.h \
  /usr/include/opencv4/opencv2/opencv.hpp \
  /usr/include/opencv4/opencv2/opencv_modules.hpp \
@@ -209,6 +213,16 @@ CMakeFiles/robotsim.dir/src/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
  /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
  /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
+<<<<<<< HEAD
+ /usr/include/c++/13/algorithm /usr/include/c++/13/bits/stl_algo.h \
+ /usr/include/c++/13/bits/algorithmfwd.h \
+ /usr/include/c++/13/bits/stl_heap.h \
+ /usr/include/c++/13/bits/uniform_int_dist.h \
+ /usr/include/c++/13/bits/stl_tempbuf.h \
+ /usr/include/c++/13/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/13/pstl/execution_defs.h \
+=======
+>>>>>>> 3f157c493f19409e5947c386d71602678696fa75
  /usr/include/opencv4/opencv2/core/cvstd.hpp /usr/include/c++/13/cstring \
  /usr/include/string.h /usr/include/strings.h /usr/include/c++/13/utility \
  /usr/include/c++/13/bits/stl_relops.h \
@@ -359,9 +373,13 @@ CMakeFiles/robotsim.dir/src/main.cpp.o: \
  /workspaces/projet_info/include/KeyboardControl.hpp \
  /workspaces/projet_info/include/Exploration.hpp \
  /workspaces/projet_info/include/WallFollow.hpp \
+<<<<<<< HEAD
+ /workspaces/projet_info/include/PathPlanner.hpp
+=======
  /workspaces/projet_info/include/PathPlanner.hpp \
  /workspaces/projet_info/include/ArucoManager.hpp \
  /usr/include/opencv4/opencv2/aruco.hpp \
  /usr/include/opencv4/opencv2/aruco/dictionary.hpp \
  /workspaces/projet_info/include/OccupancyGrid.hpp \
  /workspaces/projet_info/include/Exploration.hpp
+>>>>>>> 3f157c493f19409e5947c386d71602678696fa75

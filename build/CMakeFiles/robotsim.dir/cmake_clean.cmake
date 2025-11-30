@@ -1,6 +1,9 @@
 file(REMOVE_RECURSE
+<<<<<<< HEAD
+=======
   "CMakeFiles/robotsim.dir/src/ArucoManager.cpp.o"
   "CMakeFiles/robotsim.dir/src/ArucoManager.cpp.o.d"
+>>>>>>> 3f157c493f19409e5947c386d71602678696fa75
   "CMakeFiles/robotsim.dir/src/BehaviorManager.cpp.o"
   "CMakeFiles/robotsim.dir/src/BehaviorManager.cpp.o.d"
   "CMakeFiles/robotsim.dir/src/Camera.cpp.o"
