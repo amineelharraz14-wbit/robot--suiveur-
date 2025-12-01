@@ -185,7 +185,10 @@ int main() {
         // After update, get fresh scan to update the occupancy grid and detect collisions
         vector<double> new_scan = monLidar.scanner(monRobot.x, monRobot.y, monRobot.theta);
         // If the robot ended up too close to an obstacle (safety distance), revert
-        const double safety_distance = 0.4; // meters
+        // Safety threshold: if robot ends up *closer* than this to an obstacle, revert the move.
+        // Keep this smaller than the wall-follow target and exploration stop distance
+        // so the behavior controllers can move up to their working limits without immediate revert.
+        const double safety_distance = 0.15; // meters (was 0.4)
         double min_dist = *std::min_element(new_scan.begin(), new_scan.end());
         if (min_dist < safety_distance) {
             // revert to previous pose

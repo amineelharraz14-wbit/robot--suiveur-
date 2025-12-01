@@ -57,7 +57,8 @@ int main() {
     std::cout << "  Exploration movement -> " << (moved ? "moved" : "stayed") << " (x=" << robot.x << ", y=" << robot.y << ")" << std::endl;
 
     // Now wall follow for a few steps
-    robot.x = 0; robot.y = 0; robot.theta = 0;
+    // Ensure robot starts in a free zone (0,0) may be inside a wall on some maps
+    robot.x = -2; robot.y = 2; robot.theta = 0;
     bm.SetBehavior(std::optional<int>(3));
     for (int i = 0; i < 50; ++i) bm.update(robot, lidar, cam);
     bool wf_moved = (std::abs(robot.x) > 0.0001 || std::abs(robot.y) > 0.0001);
