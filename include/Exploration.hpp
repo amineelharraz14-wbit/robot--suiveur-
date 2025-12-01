@@ -22,6 +22,10 @@ private:
     int current_line = 0;
     double current_x = START_X;
     double current_y = START_Y;
+    // Avoidance mode state: when obstacle too close, pick an open heading
+    bool in_avoidance = false;
+    double avoid_target_theta = 0.0; // world heading to move towards
+    int avoid_steps = 0; // simple counter to move forward a few steps
 
 public:
     Exploration() = default;

@@ -10,10 +10,11 @@
  */
 class WallFollow {
 private:
-    const double WALL_DISTANCE = 3.0;   // Distance à garder du mur (mètres)
-    const double WALL_THRESHOLD = 2.0;  // Seuil de détection
-    const double ROTATION_SPEED = 0.5;
-    const double FORWARD_SPEED = 1.0;
+    const double WALL_DISTANCE = 1.0;   // Desired distance to wall (meters)
+    const double WALL_THRESHOLD = 0.6;  // Distance in front to consider obstacle
+    const double ROTATION_SPEED = 1.0;  // max angular velocity
+    const double FORWARD_SPEED = 0.7;   // forward speed while following wall
+    const double KP = 0.6;              // proportional gain for distance error
 
 public:
     WallFollow() = default;
