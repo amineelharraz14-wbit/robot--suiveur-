@@ -1,2 +1,0 @@
-/usr/bin/ar qc librobotsim_lib.a CMakeFiles/robotsim_lib.dir/src/Robot.cpp.o CMakeFiles/robotsim_lib.dir/src/LiDAR.cpp.o CMakeFiles/robotsim_lib.dir/src/Camera.cpp.o CMakeFiles/robotsim_lib.dir/src/BehaviorManager.cpp.o CMakeFiles/robotsim_lib.dir/src/ArucoManager.cpp.o CMakeFiles/robotsim_lib.dir/src/Exploration.cpp.o CMakeFiles/robotsim_lib.dir/src/WallFollow.cpp.o CMakeFiles/robotsim_lib.dir/src/PathPlanner.cpp.o CMakeFiles/robotsim_lib.dir/src/KeyboardControl.cpp.o
-/usr/bin/ranlib librobotsim_lib.a
